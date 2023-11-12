@@ -16,7 +16,7 @@ check_if_distribution_empty() {
         echo "Distribution is empty, exiting."
         exit 1
     else
-        echo "Current distribution: $distribution"
+        echo "Current distribution: $distribution."
     fi
 }
 
