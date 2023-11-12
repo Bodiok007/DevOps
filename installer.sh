@@ -67,7 +67,7 @@ install_or_update_centos() {
 install_or_update_ubuntu() {
     package_name="$1"
 
-    # Check if the package is installed, if no - install
+    # Check if the package is installed, if no - install, if yes - update
     if dpkg -l | grep -q "ii  $package_name"; then
         echo "$package_name is already installed. Updating..."
         sudo apt-get update
