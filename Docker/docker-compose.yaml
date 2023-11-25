@@ -1,0 +1,59 @@
+# file: docker-compose.yaml
+version: '3.8'
+
+volumes:
+  dbdata:
+    driver:
+      local
+  wpdata:
+    driver:
+      local
+
+secrets:
+  database-name:
+    file: ./secrets/database-name
+  database-user:
+    file: ./secrets/database-user
+  database-password-root:
+    file: ./secrets/database-password-root
+  database-password:
+    file: ./secrets/database-password
+
+services:
+  db:
+    image: db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE_FILE: /run/secrets/database-name
+      MYSQL_USER_FILE: /run/secrets/database-user
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/database-password-root
+      MYSQL_PASSWORD_FILE: /run/secrets/database-password
+    secrets:
+      - database-name
+      - database-user
+      - database-password
+      - database-password-root
+    volumes:
+      - type: volume
+        source: dbdata
+        target: /var/lib/mysql
+  web:
+    image: web
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME_FILE: /run/secrets/database-name
+      WORDPRESS_DB_USER_FILE: /run/secrets/database-user
+      WORDPRESS_DB_PASSWORD_FILE: /run/secrets/database-password
+    secrets:
+      - database-name
+      - database-user
+      - database-password
+    volumes:
+      - type: volume
+        source: wpdata
+        target: /var/www/html

@@ -1,0 +1,20 @@
+FROM ubuntu:jammy
+
+ENV MYSQL_ROOT_PASSWORD_FILE \
+    MYSQL_DATABASE_FILE \
+    MYSQL_USER_FILE \
+    MYSQL_PASSWORD_FILE
+
+RUN apt-get update && \
+    apt-get install -y mariadb-server mariadb-client netcat && \
+    rm -rf /var/lib/apt/lists/* 
+
+COPY init_db_from_env.sh /docker-entrypoint-initdb.d/init_db_from_env.sh
+
+RUN chmod +x /docker-entrypoint-initdb.d/init_db_from_env.sh
+
+EXPOSE 3306
+
+ENTRYPOINT ["/docker-entrypoint-initdb.d/init_db_from_env.sh"]
+
+CMD ["mysqld", "--user=mysql"]
