@@ -1,0 +1,105 @@
+# file: docker-compose.yaml
+version: '3.8'
+
+volumes:
+  dbdata:
+    driver:
+      local
+  wpdata:
+    driver:
+      local
+
+networks:
+  my_network:
+    driver: 
+      overlay
+
+secrets:
+  database-name:
+    file: ./secrets/database-name
+  database-user:
+    file: ./secrets/database-user
+  database-password-root:
+    file: ./secrets/database-password-root
+  database-password:
+    file: ./secrets/database-password
+
+services:
+   # Open source docker-swarm-visualizer service
+  visualizersvc:
+      # Image of docker-swarm-visualizer app
+      image: dockersamples/visualizer
+      # This service will run only when myjsapp has no failure
+      depends_on:
+        - db
+        - web
+      deploy:
+        placement:
+          # We want to deploy this service only in manager node (suppose we have only one)
+          constraints:
+            - 'node.role==manager'
+      ports:
+        # Host port : container port
+        - '5000:8080'
+      volumes:
+         # Bind volumne host to container
+          - '/var/run/docker.sock:/var/run/docker.sock'
+      networks:
+        - my_network
+
+  db:
+    image: bodiok007/db:1
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE_FILE: /run/secrets/database-name
+      MYSQL_USER_FILE: /run/secrets/database-user
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/database-password-root
+      MYSQL_PASSWORD_FILE: /run/secrets/database-password
+    deploy:
+      replicas: 1
+      placement:
+        # We want to deploy this service only in manager node (suppose we have only one)
+        constraints:
+          - 'node.role==manager'
+    secrets:
+      - database-name
+      - database-user
+      - database-password
+      - database-password-root
+    volumes:
+      - type: volume
+        source: dbdata
+        target: /var/lib/mysql
+    networks:
+      - my_network
+
+  web:
+    image: bodiok007/web:1
+    depends_on:
+      - db
+    deploy:
+      replicas: 3
+      placement:
+        # We want to deploy this service only in worker node
+        constraints:
+          - 'node.role==worker'
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME_FILE: /run/secrets/database-name
+      WORDPRESS_DB_USER_FILE: /run/secrets/database-user
+      WORDPRESS_DB_PASSWORD_FILE: /run/secrets/database-password
+    secrets:
+      - database-name
+      - database-user
+      - database-password
+    volumes:
+      - type: volume
+        source: wpdata
+        target: /var/www/html
+    networks:
+      - my_network
+
+ 
