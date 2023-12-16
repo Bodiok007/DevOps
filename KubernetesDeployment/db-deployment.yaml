@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-app
+  template:
+    metadata:
+      labels:
+        app: mysql-app
+    spec:
+      containers:
+        - name: mysql-app
+          image: mysql:8.0.20
+          ports:
+            - containerPort: 3306
+          envFrom: 
+            - secretRef:
+                name: mysql-secrets
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+spec:
+  selector:
+    app: mysql-app
+  ports:
+    - protocol: TCP
+      port: 3306 # service port (is internal to the kubernetes cluster and can be used when one application wants to communicate with another application)
+      targetPort: 3306 # container port (the actual port on which your application is running inside the container)
+      # nodePort: 30001 # to accecc from Internet
+  type: ClusterIP #LoadBalancer, then remove node port; NodePort, then define nodePort: 30001
