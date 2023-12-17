@@ -1,7 +1,7 @@
 1. Repeat steps 1-11 from [KubernetesIntro](https://github.com/Bodiok007/DevOps/blob/develop/KubernetesIntro/ReadmeKubernetesIntro.md) but with files from current KubernetesDeployment
 folder.
 
-2. Copy `secrets.yaml`, `app-deployment.yaml` and `db-deployment.yaml` to Master Node.
+2. Copy [secrets.yaml](https://github.com/Bodiok007/DevOps/blob/develop/KubernetesDeployment/secrets.yaml), [app-deployment.yaml](https://github.com/Bodiok007/DevOps/blob/develop/KubernetesDeployment/app-deployment.yaml) and [db-deployment.yaml](https://github.com/Bodiok007/DevOps/blob/develop/KubernetesDeployment/db-deployment.yaml) to Master Node.
 
 3. Aplly
 ```
