@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: wordpress-app
+  template:
+    metadata:
+      labels:
+        app: wordpress-app
+    spec:
+      containers:
+        - name: wordpress-app
+          image: wordpress:5-apache
+          ports:
+            - containerPort: 80
+          envFrom: 
+            - secretRef:
+                name: wordpress-secrets
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-service
+spec:
+  selector:
+    app: wordpress-app
+  ports:
+    - protocol: TCP
+      port: 80 # service port (is internal to the kubernetes cluster and can be used when one application wants to communicate with another application)
+      targetPort: 80 # container port (the actual port on which your application is running inside the container)
+      # nodePort: 30000 # to accecc from Internet
+  type: LoadBalancer #LoadBalancer, then remove node port
