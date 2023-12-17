@@ -3,7 +3,7 @@ folder.
 
 2. Copy [secrets.yaml](https://github.com/Bodiok007/DevOps/blob/develop/KubernetesDeployment/secrets.yaml), [app-deployment.yaml](https://github.com/Bodiok007/DevOps/blob/develop/KubernetesDeployment/app-deployment.yaml) and [db-deployment.yaml](https://github.com/Bodiok007/DevOps/blob/develop/KubernetesDeployment/db-deployment.yaml) to Master Node.
 
-3. Aplly
+3. Aplly:
 ```
 kubectl apply -f secrets.yaml
 kubectl apply -f app-deployment.yaml
@@ -16,7 +16,7 @@ kubectl apply -f db-deployment.yaml
 
 ![WorkingWordpress](https://github.com/Bodiok007/DevOps/blob/develop/KubernetesDeployment/Screenshots/WorkingWordpress.png?raw=true)
 
-6. Clean up
+6. Clean up:
 ```
 kubectl delete -f secrets.yaml
 kubectl delete -f app-deployment.yaml
