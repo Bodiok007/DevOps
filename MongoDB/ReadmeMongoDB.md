@@ -2,7 +2,7 @@
 
 ![CreateDatabase](https://github.com/Bodiok007/DevOps/blob/develop/MongoDB/Screenshots/CreateDatabase.png?raw=true)
 
-3. Create collections:
+2. Create collections:
 ```
 db.createCollection("clients")
 db.createCollection("memberships")
