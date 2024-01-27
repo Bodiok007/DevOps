@@ -1,0 +1,6 @@
+---
+
+- name: Create MySQL database
+  community.mysql.mysql_db:
+    name: "{{ mysql_database }}"
+    state: present

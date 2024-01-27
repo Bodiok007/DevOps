@@ -1,0 +1,9 @@
+---
+
+- name: Setup Db playbook
+  hosts: mysql
+  become: yes
+  roles:
+    - user_config
+    - install_soft
+    - mysql_server

@@ -1,0 +1,10 @@
+---
+
+- name: Install MySQL packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - mysql-server
+    - python3-mysqldb  # For MySQL module support
+  become: true

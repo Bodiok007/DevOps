@@ -1,0 +1,7 @@
+---
+
+- name: Flush privileges
+  command: 'mysql -ne "{{ item }}"'
+  with_items:
+    - FLUSH PRIVILEGES
+  changed_when: False

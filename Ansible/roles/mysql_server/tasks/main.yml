@@ -1,0 +1,22 @@
+---
+
+- name: Include task 1
+  include_tasks: install-mysql.yml
+
+- name: Include task 2
+  include_tasks: create-mysql-user.yml
+
+- name: Include task 3
+  include_tasks: create-mysql-db.yml
+
+- name: Include task 4
+  include_tasks: flush-privileges.yml
+
+- name: Include task 5
+  include_tasks: copy-mysql-config.yml
+
+- name: Include task 6
+  include_tasks: set-root-credentials.yml
+
+- name: Include task 7
+  include_tasks: restart-mysql.yml

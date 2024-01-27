@@ -1,0 +1,7 @@
+---
+
+user: devops
+
+ssh_key:
+  user: "{{ user }}"  # Replace with the target user's username
+  key: ""  # Replace with the actual public key content

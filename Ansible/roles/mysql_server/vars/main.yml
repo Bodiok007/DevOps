@@ -1,0 +1,6 @@
+---
+
+mysql_root_password: "your_root_password"
+mysql_user: "your_username"
+mysql_user_password: "your_user_password"
+mysql_database: "ansible"

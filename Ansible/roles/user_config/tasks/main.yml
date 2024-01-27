@@ -1,0 +1,10 @@
+---
+
+- name: Include tasks 1
+  include_tasks: create-user.yml
+
+- name: Include tasks 2
+  include_tasks: add-key.yml
+
+- name: Include tasks 3
+  include_tasks: bashrc.yml

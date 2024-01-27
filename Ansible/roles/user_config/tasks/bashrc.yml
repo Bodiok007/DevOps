@@ -1,0 +1,9 @@
+---
+
+- name: Add alias to .bashrc
+  ansible.builtin.lineinfile:
+    dest: "/home/{{ user }}/.bashrc"
+    line: 'alias md="mkdir"'
+    # insertafter: EOF
+    state: present
+  become: yes

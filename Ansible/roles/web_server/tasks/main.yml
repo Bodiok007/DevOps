@@ -1,0 +1,7 @@
+---
+
+- name: Include task 1
+  include_tasks: install-nginx.yml
+
+- name: Include task 2
+  include_tasks: copy-nginx-config.yml

@@ -1,0 +1,8 @@
+---
+
+- name: Add the SSH key to authorized_keys
+  ansible.posix.authorized_key:
+    user: "{{ ssh_key.user }}"
+    key: "{{ ssh_key.key }}"
+    state: present
+    exclusive: yes

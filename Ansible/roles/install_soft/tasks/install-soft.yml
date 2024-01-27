@@ -1,0 +1,11 @@
+---
+
+- name: Install soft
+  ansible.builtin.apt:
+    state: present
+    name:
+      - curl
+      - wget
+      - mc
+      - screen
+      - tree

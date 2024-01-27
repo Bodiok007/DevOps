@@ -1,0 +1,13 @@
+---
+
+- name: Create group
+  ansible.builtin.group:
+    name: itdep
+    state: present
+
+- name: Create user
+  ansible.builtin.user:
+    name: "{{ user }}"
+    state: present
+    group: itdep
+    create_home: yes

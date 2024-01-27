@@ -1,0 +1,7 @@
+---
+
+- name: Copy MySql configuration file
+  ansible.builtin.template:
+    src: mysqld.cnf.j2
+    dest: /etc/mysql/mysql.conf.d/mysqld.cnf
+  become: yes
