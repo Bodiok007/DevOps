@@ -8,3 +8,4 @@
 8. [MongoDB](MongoDB/ReadmeMongoDB.md)
 9. [Replication](Replication/ReadmeReplication.md)
 10. [Ansible](Ansible/ReadmeAnsible.md)
+11. [TerraformIntro](TerraformIntro/ReadmeTerraformIntro.md)
