@@ -5,7 +5,7 @@
 1. `WebDockerfile` - to create web image based on [wordpress:php8.2-apache](https://hub.docker.com/layers/library/wordpress/php8.2-apache/images/sha256-0d4b5901a259a565595d1c48c40a34b2425c544cd3b26b6a5ebc9ddd39be29b7?context=explore).
 2. `DBDockerfile` - to create db image based on [ubuntu:jammy](http://sabaka.net](https://hub.docker.com/layers/library/ubuntu/jammy/images/sha256-c9cf959fd83770dfdefd8fb42cfef0761432af36a764c077aed54bbc5bb25368?context=explore)https://hub.docker.com/layers/library/ubuntu/jammy/images/sha256-c9cf959fd83770dfdefd8fb42cfef0761432af36a764c077aed54bbc5bb25368?context=explore). Uses [MariaDB](https://mariadb.org/).
 3. `init_db_from_env.sh` - script to initialize mysql environment variables.
-4. `secrets` - folder where exist values for mysql environment variables.
+4. `secrets` - folder where exist values for mysql environment variables. Files from this folder should not be commited to repository!
 5. `docker-compose.yaml` - to run web and db containers with a single command.
 
 #### `WebDockerfile`

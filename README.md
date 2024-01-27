@@ -6,3 +6,4 @@
 6. [KubernetesMonitoringAndLogging](https://github.com/Bodiok007/DevOps/blob/develop/KubernetesMonitoringAndLogging/ReadmeKubernetesMonitoringAndLogging.md)
 7. [MySQLDump](https://github.com/Bodiok007/DevOps/blob/develop/MySQLDump/ReadmeMySQLDump.md)
 8. [MongoDB](https://github.com/Bodiok007/DevOps/blob/develop/MongoDB/ReadmeMongoDB.md)
+9. [Replication](https://github.com/Bodiok007/DevOps/blob/develop/Replication/ReadmeReplication.md)
