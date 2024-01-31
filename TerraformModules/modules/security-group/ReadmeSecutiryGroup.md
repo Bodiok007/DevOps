@@ -4,6 +4,11 @@
 
 This Terraform module provisions an AWS Security Group, allowing you to define and manage network access rules for your EC2 instances within a specified Virtual Private Cloud (VPC). Security Groups act as virtual firewalls for your instances, controlling inbound and outbound traffic based on defined rules.
 
+### Features:
+- <b>Dynamic Ingress and Egress Rules:</b> This module supports dynamic definition of both ingress and egress rules. You can easily customize the allowed traffic by specifying rules for various ports, protocols, and CIDR blocks.
+  
+- <b>Tagging:</b> The module allows you to tag the created security group for better organization and identification within your AWS environment.
+
 ## Usage
 
 ```
