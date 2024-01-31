@@ -4,6 +4,12 @@
 
 ![ResourceMap](Screenshots/ResourceMap.png)
 
+## Modules doccumentation
+
+1. [EC2](modules/ec2-instance/ReadmeEC2.md)
+2. [Security Group](modules/security-group/ReadmeSecutiryGroup.md)
+3. [VPC](modules/vpc/ReadmeVPC.md)
+
 ## Preparing
 
 Before applying - secret keys of AWS needs to be set up.
