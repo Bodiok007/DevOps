@@ -29,7 +29,7 @@ export AWS_SECRET_ACCESS_KEY_ID=""
 aws configure
 ```
 
-Also please put you ssh key to root directory and update next variable with your ssh key name:
+Also please put your ssh key name to next variable:
 ```
 ssh_key_name  = "DevOps-key"
 ```
