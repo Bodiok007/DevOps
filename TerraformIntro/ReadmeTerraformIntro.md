@@ -29,6 +29,11 @@ export AWS_SECRET_ACCESS_KEY_ID=""
 aws configure
 ```
 
+Also please put you ssh key to root directory and update next variable with your ssh key name:
+```
+ssh_key_name  = "DevOps-key"
+```
+
 ## Workflow
 
 1. Init:
