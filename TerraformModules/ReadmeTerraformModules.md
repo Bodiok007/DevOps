@@ -2,7 +2,7 @@
 
 ## Infrustructure
 
-![ResourceMap](TerraformModules/Screenshots/ResourceMap.png)
+![ResourceMap](Screenshots/ResourceMap.png)
 
 ## Preparing
 
