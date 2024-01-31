@@ -9,3 +9,4 @@
 9. [Replication](Replication/ReadmeReplication.md)
 10. [Ansible](Ansible/ReadmeAnsible.md)
 11. [TerraformIntro](TerraformIntro/ReadmeTerraformIntro.md)
+12. [TerraformModules](TerraformModules/ReadmeTerraformModules.md)
