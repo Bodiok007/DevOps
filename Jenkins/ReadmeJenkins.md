@@ -37,27 +37,27 @@ After every build e-mail notification will be sent with:
 ## Workflow
 
 1. Get password for Jenkins on first run.
-![UnlockJenkins](Jenkins/Screenshots/UnlockJenkins.png)
+![UnlockJenkins](Screenshots/UnlockJenkins.png)
 
 2. Create user.
-![CreateJenkinsUser](Jenkins/Screenshots/CreateJenkinsUser.png)
+![CreateJenkinsUser](Screenshots/CreateJenkinsUser.png)
 
 3. Install recommended plugins.
 
 4. Install additionally NodeJS plugin and setup it in Tools.
-![ConfigureNodeJS](Jenkins/Screenshots/ConfigureNodeJS.png)
+![ConfigureNodeJS](Screenshots/ConfigureNodeJS.png)
 
 5. Add variables and credentials.
-![AddVariables](Jenkins/Screenshots/AddVariables.png)
+![AddVariables](Screenshots/AddVariables.png)
 
 6. Configure e-mails.
-![ConfigureEmails](Jenkins/Screenshots/ConfigureEmails.png)
+![ConfigureEmails](Screenshots/ConfigureEmails.png)
 
 7. Create pipeline based on [Jenkinsfile](Jenkins/Jenkinsfile).
-![PipelineFromJenkinsfile](Jenkins/Screenshots/PipelineFromJenkinsfile.png)
+![PipelineFromJenkinsfile](Screenshots/PipelineFromJenkinsfile.png)
 
 8. Configure web hook on github.
-![AddWebHook](Jenkins/Screenshots/AddWebHook.png)
+![AddWebHook](Screenshots/AddWebHook.png)
 
 9. Commit new change and check if build triggered.
-![CheckWebHook](Jenkins/Screenshots/CheckWebHook.png)
+![CheckWebHook](Screenshots/CheckWebHook.png)
