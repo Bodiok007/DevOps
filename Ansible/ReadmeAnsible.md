@@ -18,21 +18,21 @@
   
 ## Workflow
 
-1. Update variables in file [roles/user_config/vars/main.yml](Ansible/roles/user_config/vars/main.yml):
+1. Update variables in file [roles/user_config/vars/main.yml](roles/user_config/vars/main.yml):
    - `key: ""` - set your public ssh key content
 
-2. Update variables in file [roles/mysql_server/vars/main.yml](Ansible/roles/mysql_server/vars/main.yml):
+2. Update variables in file [roles/mysql_server/vars/main.yml](roles/mysql_server/vars/main.yml):
    - `mysql_root_password: "your_root_password"` - set your root password
    - `mysql_user: "your_username"` - set your user name
    - `mysql_user_password: "your_user_password"` - set your user password
    - `mysql_database: "ansible"` - set your db name
   
-3. Update information about hosts in in [inventory.ini](Ansible/inventory.ini):
+3. Update information about hosts in in [inventory.ini](inventory.ini):
    - `54.146.65.212` - set IP
    - `ansible_ssh_user=ubuntu` - set user
    - `ansible_ssh_private_key_file=DevOps-key.pem` - set private ssh key public part of which is already present on remote host
 
-4.   Put already existed on remote machine ssh key to root folder with name as in [inventory.ini](Ansible/inventory.ini) (currenlty DevOps-key.pem, but you can change it to whatever you need)
+4.   Put already existed on remote machine ssh key to root folder with name as in [inventory.ini](inventory.ini) (currenlty DevOps-key.pem, but you can change it to whatever you need)
 
 5. Run Web playbook:
 ```
