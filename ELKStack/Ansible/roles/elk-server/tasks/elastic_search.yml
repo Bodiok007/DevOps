@@ -1,0 +1,19 @@
+---
+
+- name: Install ElasticSearch
+  ansible.builtin.apt:
+    name: elasticsearch
+    state: present
+
+- name: Configure ElasticSearch
+  ansible.builtin.template:
+    src: etc/elasticsearch/elasticsearch.yml.j2
+    dest: /etc/elasticsearch/elasticsearch.yml
+  # notify: 
+  #   - restart elasticsearch
+
+- name: restart elasticsearch
+  ansible.builtin.systemd:
+    name: elasticsearch
+    state: restarted
+    enabled: true

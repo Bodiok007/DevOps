@@ -1,0 +1,11 @@
+---
+
+- name: Install and configure ELK Stack
+  hosts: monitoring
+  become: yes
+  roles:
+    - elk-server
+
+#  ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook elk-monitoring-playbook.yml \
+#     -i inventory \
+#     --diff --check

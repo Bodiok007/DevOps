@@ -1,0 +1,7 @@
+---
+
+- name: Install and configure ELK Stack for client
+  hosts: app
+  become: yes
+  roles:
+    - elk-client

@@ -1,0 +1,8 @@
+# Module logstash
+
+- module: logstash
+  period: 10s
+  hosts:
+  {% for host in monitoring_group_hosts %}
+    - "{{ host }}:5044"
+  {% endfor %}

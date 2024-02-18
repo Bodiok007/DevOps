@@ -1,0 +1,33 @@
+---
+
+- name: Install Metricbeat
+  ansible.builtin.apt:
+    name: metricbeat
+    state: present
+
+- name: Configure Metricbeat
+  ansible.builtin.template:
+    src: etc/metricbeat/metricbeat.yml.j2
+    dest: /etc/metricbeat/metricbeat.yml
+  # notify:
+  #   - restart metricbeat
+
+- name: Configure Metricbeat logstash module
+  ansible.builtin.template:
+    src: etc/metricbeat/modules.d/logstash.yml.j2
+    dest: /etc/metricbeat/modules.d/logstash.yml
+  # notify:
+  #   - restart metricbeat
+
+- name: Configure Metricbeat system module
+  ansible.builtin.template:
+    src: etc/metricbeat/modules.d/system.yml.j2
+    dest: /etc/metricbeat/modules.d/system.yml
+  # notify:
+  #   - restart metricbeat
+
+- name: restart metricbeat
+  ansible.builtin.systemd:
+    name: metricbeat
+    state: restarted
+    enabled: true

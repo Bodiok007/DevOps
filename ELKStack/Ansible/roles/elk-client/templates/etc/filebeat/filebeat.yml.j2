@@ -1,0 +1,18 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths: 
+    - /var/log/*.log
+
+output.logstash:
+  hosts:
+  {% for host in monitoring_group_hosts %}
+    - "{{ host }}:5044"
+  {% endfor %}
+
+filebeat.config.modules:
+  enabled: true
+  reload.enabled: false
+  path: /etc/filebeat/modules.d/*.yml
+
+setup.ilm.overwrite: true

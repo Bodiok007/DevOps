@@ -1,0 +1,13 @@
+---
+
+- name: restart metricbeat
+  ansible.builtin.systemd:
+    name: metricbeat
+    state: restarted
+    enabled: true
+
+- name: restart filebeat
+  ansible.builtin.systemd:
+    name: filebeat
+    state: restarted
+    enabled: true

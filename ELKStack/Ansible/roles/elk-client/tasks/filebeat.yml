@@ -1,0 +1,23 @@
+---
+
+- name: Install Filebeat
+  ansible.builtin.apt:
+    name: filebeat
+    state: present
+
+- name: Configure Filebeat
+  ansible.builtin.template:
+    src: etc/filebeat/filebeat.yml.j2
+    dest: /etc/filebeat/filebeat.yml
+
+- name: Configure Filebeat system module
+  ansible.builtin.template:
+    src: etc/filebeat/modules.d/system.yml.j2
+    dest: /etc/filebeat/modules.d/system.yml
+  # notify: restart filebeat
+
+- name: restart filebeat
+  ansible.builtin.systemd:
+    name: filebeat
+    state: restarted
+    enabled: true

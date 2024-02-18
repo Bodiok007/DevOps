@@ -1,0 +1,25 @@
+---
+
+- name: Import public GPG key
+  ansible.builtin.apt_key:
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    state: present
+
+- name: Add repository
+  ansible.builtin.apt_repository:
+    repo: "deb https://artifacts.elastic.co/packages/7.x/apt stable main"
+    state: present
+
+- name: Gather IP addresses from "app" group
+  set_fact:
+    monitoring_group_hosts: "{{ groups['monitoring'] | map('extract', hostvars, ['inventory_hostname']) | list }}"
+
+# - name: Debug app_group_ips
+#   debug:
+#     var: monitoring_group_hosts
+
+- name: Install and configure Filebeat
+  include_tasks: filebeat.yml
+
+- name: Install and configure Metricbeat
+  include_tasks: metricbeat.yml

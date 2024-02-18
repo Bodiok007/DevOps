@@ -1,0 +1,51 @@
+---
+
+- name: Import public GPG key
+  ansible.builtin.apt_key:
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    state: present
+
+- name: Add repository
+  ansible.builtin.apt_repository:
+    repo: "deb https://artifacts.elastic.co/packages/7.x/apt stable main"
+    state: present
+
+# - name: Gather IP addresses from "app" group
+#   set_fact:
+#     app_group_ips: "{{ groups['app'] | map('extract', hostvars, ['inventory_hostname']) | list }}"
+
+- name: Install and configure ElasticSearch
+  include_tasks: elastic_search.yml
+
+- name: Install and configure Kibana
+  include_tasks: kibana.yml
+
+- name: Install and configure Logstash
+  include_tasks: logstash.yml
+
+- name: Install and configure Filebeat
+  include_tasks: filebeat.yml
+
+- name: Install and configure Metricbeat
+  include_tasks: metricbeat.yml
+
+# ----------------- RDN
+# - name: Force execution of handlers
+#   meta: flush_handlers
+# ----------------- RDN
+
+- name: Enable Filebeat modules
+  shell: "filebeat modules enable system"
+
+- name: Load Metricbeat modules
+  shell: "metricbeat modules enable logstash"
+
+- name: Load the index template to ElasticSearch and dashboard to Kibana
+  shell: |
+    filebeat setup --index-management -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["localhost:9200"]'
+    filebeat setup -E output.logstash.enabled=false -E output.elasticsearch.hosts=['localhost:9200'] -E setup.kibana.host=localhost:5601
+
+- name: Load the dashboard to ELK
+  shell: |
+    metricbeat setup --index-management -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["localhost:9200"]'
+    metricbeat setup -E output.logstash.enabled=false -E output.elasticsearch.hosts=['localhost:9200'] -E setup.kibana.host=localhost:5601

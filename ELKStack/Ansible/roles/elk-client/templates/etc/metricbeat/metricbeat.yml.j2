@@ -1,0 +1,23 @@
+metricbeat.config.modules:
+  enabled: true
+  reload.enabled: false
+  path: /etc/metricbeat/modules.d/*.yml
+
+setup.template.settings:
+  index.number_of_shards: 1
+  index.codec: best_compression
+
+output.logstash:
+  enabled: true
+  hosts:
+  {% for host in monitoring_group_hosts %}
+    - "{{ host }}:5044"
+  {% endfor %}
+
+setup.ilm.overwrite: true
+
+processors:
+  - add_host_metadata: ~
+  - add_cloud_metadata: ~
+  - add_docker_metadata: ~
+  - add_kubernetes_metadata: ~
