@@ -36,8 +36,8 @@ This will define variable `monitoring_group_hosts` whick is used in templates fo
 - [metricbeat](Ansible/roles/elk-client/templates/etc/metricbeat/metricbeat.yml.j2) - is used for shipping system and application metrics
 
 ## Results
-Kibana with logs should be available on <ip>:5601 where you can configure dashboard.
-![Kibana](Screenshots/Dashboard)
+Kibana with logs should be available on `<ip>:5601` where you can configure dashboard.
+![Kibana](Screenshots/Dashboard.png)
 
 ## Notes
 
