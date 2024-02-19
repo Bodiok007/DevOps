@@ -6,6 +6,6 @@
   roles:
     - elk-server
 
-#  ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook elk-monitoring-playbook.yml \
+#  ansible-playbook elk-monitoring-playbook.yml \
 #     -i inventory \
 #     --diff --check
