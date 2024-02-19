@@ -9,7 +9,7 @@
 
 ## Preparation
 
-1. Apply [Infrustructure](Jenkins/Infrustructure) as described [here](TerraformIntro/ReadmeTerraformIntro.md).
+1. Apply [Infrustructure](Jenkins/Infrustructure) as described [here](../TerraformIntro/ReadmeTerraformIntro.md).
 2. On Jenkins machine execute `install-jenkins.sh`.
 3. On App machine:
  - install NodeJS
