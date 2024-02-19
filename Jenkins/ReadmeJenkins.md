@@ -2,14 +2,14 @@
 
 ## Structure
 
-1. [Infrustructure](Jenkins/Infrustructure) - contains terraform files to create AWS resources.
-2. [Jenkinsfile](Jenkins/Jenkinsfile) - to create pipeline.
-3. [install-jenkins.sh](Jenkins/install-jenkins.sh) - to install Jenkins to server.
+1. [Infrustructure](Infrustructure) - contains terraform files to create AWS resources.
+2. [Jenkinsfile](Jenkinsfile) - to create pipeline.
+3. [install-jenkins.sh](install-jenkins.sh) - to install Jenkins to server.
 4. [AppToBuildAndDeploy](https://github.com/Bodiok007/18-app) - repository with app to be used by Jenkins.
 
 ## Preparation
 
-1. Apply [Infrustructure](Jenkins/Infrustructure) as described [here](../TerraformIntro/ReadmeTerraformIntro.md).
+1. Apply [Infrustructure](Infrustructure) as described [here](../TerraformIntro/ReadmeTerraformIntro.md).
 2. On Jenkins machine execute `install-jenkins.sh`.
 3. On App machine:
  - install NodeJS
