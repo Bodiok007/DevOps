@@ -42,7 +42,7 @@ ssh_key_name  = "DevOps-key"
 
 ## Workflow
 
-Next command should be applied first to [s3/main.tf](TerraformModules/s3/main.tf), then to the [main.tf](TerraformModules/main.tf) in root folder.
+Next command should be applied first to [s3/main.tf](s3/main.tf), then to the [main.tf](main.tf) in root folder.
 
 1. Init:
 ```
