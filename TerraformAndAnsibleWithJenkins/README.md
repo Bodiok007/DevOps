@@ -55,7 +55,7 @@ Variable `jenkins-ip` will be automatically defined from `inventory.ini`.
 
 ![TerraformPipeline](Screenshots/TerraformPipelineWithParameters.png)
 
-2. Update `REMOTE_HOST` with IP of host created from previous step on: Manage Jenkins -> System -> Global properties section.
+3. Update `REMOTE_HOST` with IP of host created from previous step on: Manage Jenkins -> System -> Global properties section.
 
 ### AnsibleApp
 
