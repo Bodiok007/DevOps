@@ -32,7 +32,7 @@ This will create `inventory.ini` file from [inventory.tmpl](../TerraformStart/in
 
 ### AnsibleStart
 
-1. Put your private `DevOps-key.pem` to [AnsibleStart](AnsibleStart).
+1. Put your private `DevOps-key.pem` (public part of which is already on server) to [AnsibleStart](AnsibleStart).
 
 2. Run playbook and specify you values for `jenkins_admin_username` and `jenkins_admin_password`:
 
