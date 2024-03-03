@@ -46,7 +46,7 @@ ansible-playbook jenkins-playbook.yml \
 
 Variable `jenkins-ip` will be automatically defined from `inventory.ini`.
 
-3. Set values to devops-ssh-key, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY on Manage Jenkins -> System -> Credentials -> System -> Global credentials (unrestricted) properties section.
+3. Set values to `devops-ssh-key`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` on Manage Jenkins -> System -> Credentials -> System -> Global credentials (unrestricted) properties section.
 
 ### TerraformApp
 
