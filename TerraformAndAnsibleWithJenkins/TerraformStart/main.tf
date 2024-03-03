@@ -48,7 +48,7 @@ module "jenkins" {
   source = "./modules/ec2-instance"
 
   instance_ami = data.aws_ami.ubuntu.id
-  instance_type = "t2.medium" // TODO medium
+  instance_type = "t2.medium"
   subnet_id = module.jenkins_vpc.public_subnet_ids[0]
   security_groups_name = module.public_jenkins_sg.my_sg_id
   instance_name = "jenkins-instance"
