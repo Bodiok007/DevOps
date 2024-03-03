@@ -1,0 +1,95 @@
+jenkins_version: 2.446
+jenkins_package_state: present
+jenkins_home: /var/lib/jenkins
+
+jenkins_plugins_install_dependencies: "true"
+
+jenkins_pkg_url: "https://pkg.jenkins.io/debian/binary"
+
+jenkins_hostname: "{{ jenkins_ip }}"
+jenkins_port: 8080
+
+jenkins_init_folder: "/etc/systemd/system/jenkins.service.d"
+jenkins_init_file: "{{ jenkins_init_folder }}/override.conf"
+
+jenkins_process_user: jenkins
+jenkins_process_group: "{{ jenkins_process_user }}"
+
+jenkins_admin_username: #admin
+jenkins_admin_password: #"password1221!"
+
+jenkins_connection_retries: 60
+jenkins_connection_delay: 5
+
+jenkins_jar_location: /opt/jenkins-cli.jar
+
+jenkins_updates_url: "https://updates.jenkins.io"
+
+jenkins_plugin_timeout: 30
+jenkins_plugin_updates_expiration: 86400
+jenkins_plugin_install_dependencies: "true"
+
+jenkins_options: ""
+jenkins_java_options: "-Djenkins.install.runSetupWizzard=false"
+jenkins_url_prefix: ""
+# jenkins_http_port: 8080
+
+jenkins_init_changes:
+  - option: "JENKINS_OPTS"
+    value: "{{ jenkins_options }}"
+  - option: "JAVA_OPTS"
+    value: "{{ jenkins_java_options }}"
+  - option: "JENKINS_HOME"
+    value: "{{ jenkins_home }}"
+  - option: "JENKINS_PREFIX"
+    value: "{{ jenkins_url_prefix }}"
+  # - opition: "JENKINS_PORT"
+  #   value: "{{ jenkins_http_port }}"
+
+jenkins_post_init_changes:
+  - option: "CASC_JENKINS_CONFIG"
+    value: "/var/lib/jenkins/casc.yaml"
+
+jenkins_plugins_state: present
+jenkins_plugins:
+  - name: antisamy-markup-formatter
+  - name: prism-api
+  - name: docker-commons
+  - name: pipeline-rest-api
+  - name: pipeline-model-api
+  - name: pipeline-model-extensions
+  - name: pipeline-groovy-lib
+  - name: pipeline-stage-step
+  - name: pipeline-input-step
+  - name: pipeline-stage-tags-metadata
+  - name: token-macro
+  - name: authentication-tokens
+  - name: variant
+  - name: matrix-project
+  - name: junit
+  - name: workflow-durable-task-step
+  - name: workflow-basic-steps
+  - name: configuration-as-code
+  - name: matrix-auth
+  - name: pipeline-stage-view
+  - name: cloudbees-folder
+  - name: workflow-multibranch
+  - name: git
+  - name: ansicolor
+  - name: job-dsl
+  - name: pipeline-model-definition
+  - name: ssh-agent
+  - name: rebuild
+  - name: pipeline-build-step
+  - name: git-parameter
+  - name: docker-workflow
+  - name: http_request
+  - name: cloud-stats
+  - name: ssh-slaves
+  - name: htmlpublisher
+  - name: mailer
+  - name: nodejs
+  - name: timestamper
+  - name: pollSCM
+  - name: email-ext
+  - name: terraform

@@ -1,0 +1,31 @@
+---
+
+- name: Install base packages
+  ansible.builtin.apt:
+    name:
+      - curl
+      - apt-transport-https
+      - openjdk-17-jdk
+      - default-jre
+      - gnupg2
+      - git
+    state: present
+    update_cache: true
+
+- name: Add Jenkins apt repository key
+  ansible.builtin.get_url:
+    url: "https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key"
+    dest: /etc/apt/trusted.gpg.d/jenkins.asc
+    mode: '0644'
+    force: true
+
+- name: Add Jenkins apt repository
+  ansible.builtin.apt_repository:
+    repo: "deb https://pkg.jenkins.io/debian-stable binary/"
+    state: present
+    update_cache: true
+
+- name: Download Jenkins
+  ansible.builtin.get_url:
+    url: "{{ jenkins_pkg_url }}/jenkins_{{ jenkins_version }}_all.deb"
+    dest: "/tmp/jenkins_{{ jenkins_version }}_all.deb"

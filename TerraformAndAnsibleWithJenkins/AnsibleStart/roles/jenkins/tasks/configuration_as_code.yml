@@ -1,0 +1,43 @@
+- name: Template jenkins configuration-as-code files
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ jenkins_process_user }}"
+    group: "{{ jenkins_process_group }}"
+    mode: "0644"
+  loop:
+    - { src: "casc.yaml.j2", dest: "{{ jenkins_home }}/casc.yaml" }
+    # - { src: "ec2-key.j2", dest: "{{ jenkins_home }}/ec2-key" }
+  tags:
+    - template_config_files
+
+- name: Copy JobDSL files
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ jenkins_process_user }}"
+    group: "{{ jenkins_process_group }}"
+    mode: "0644"
+  loop:
+    - { src: "jobdsl/folders.groovy", dest: "{{ jenkins_home }}/jobdsl/" }
+    - { src: "jobdsl/pipelines.groovy", dest: "{{ jenkins_home }}/jobdsl/" }
+  tags:
+    - template_config_files
+
+- name: Add Jenkins as code variables in init file.
+  ansible.builtin.lineinfile:
+    dest: "{{ jenkins_init_file }}"
+    insertafter: '^Environment="{{ item.option }}='
+    regexp: '^Environment="{{ item.option }} '
+    line: 'Environment="{{ item.option }}={{ item.value }}"'
+    state: present
+    mode: "0644"
+  with_items: "{{ jenkins_post_init_changes }}"
+  register: jenkins_post_init_prefix
+
+- name: Immediately restart Jenkins on init config changes.
+  ansible.builtin.systemd:
+    name: jenkins
+    state: restarted
+    daemon_reload: true
+    # enabled: true

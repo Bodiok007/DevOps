@@ -1,0 +1,132 @@
+---
+
+- name: Install Jenkins
+  ansible.builtin.apt:
+    deb: "/tmp/jenkins_{{ jenkins_version }}_all.deb"
+    state: present
+  # notify: configure default users
+
+- name: Ensure Jenkins is installed.
+  ansible.builtin.apt:
+    name: jenkins
+    state: "{{ jenkins_package_state }}"
+  # notify: configure default users
+
+- name: Ensure jenkins_init_folder exists.
+  ansible.builtin.file:
+    path: "{{ jenkins_init_folder }}"
+    state: directory
+    mode: "0644"
+
+- name: Check if jenkins_init_file exists.
+  ansible.builtin.stat:
+    path: "{{ jenkins_init_file }}"
+  register: jenkins_init_file_stat
+
+- name: Ensure jenkins_init_file exists.
+  ansible.builtin.file:
+    path: "{{ jenkins_init_file }}"
+    state: touch
+    mode: "0644"
+  when: not jenkins_init_file_stat.stat.exists
+
+- name: Populate jenkins_init_file with service tag.
+  ansible.builtin.copy:
+    dest: "{{ jenkins_init_file }}"
+    content: "[Service]"
+  when: not jenkins_init_file_stat.stat.exists
+
+- name: Modify variables in init file.
+  ansible.builtin.lineinfile:
+    dest: "{{ jenkins_init_file }}"
+    insertafter: '^Environment="{{ item.option }}='
+    regexp: '^Environment="{{ item.option }} '
+    line: 'Environment="{{ item.option }}={{ item.value }}"'
+    state: present
+    mode: "0644"
+  with_items: "{{ jenkins_init_changes }}"
+  register: jenkins_init_prefix
+
+- name: Ensure jenkins_home {{ jenkins_home }} exists.
+  ansible.builtin.file:
+    path: "{{ jenkins_home }}"
+    state: directory
+    owner: jenkins
+    group: jenkins
+    mode: u+rwx
+    follow: true
+
+- name: Immediately restart Jenkins on init config changes.
+  ansible.builtin.systemd:
+    name: jenkins
+    state: restarted
+    daemon_reload: true
+  when: jenkins_init_prefix.changed
+
+- name: Create custom init scripts directory.
+  ansible.builtin.file:
+    path: "{{ jenkins_home }}/init.groovy.d"
+    state: directory
+    owner: "{{ jenkins_process_user }}"
+    group: "{{ jenkins_process_group }}"
+    mode: "0775"
+
+- name: configure default users
+  ansible.builtin.template:
+    src: basic-security.groovy.j2
+    dest: "{{ jenkins_home }}/init.groovy.d/basic-security.groovy"
+    owner: "{{ jenkins_process_user }}"
+    group: "{{ jenkins_process_group }}"
+    mode: "0775"
+  register: jenkins_users_config
+
+- name: Trigger handlers immediately in case Jenkins was installed
+  ansible.builtin.meta: flush_handlers
+
+- name: Immediately restart Jenkins on http or user changes.
+  ansible.builtin.service: name=jenkins state=restarted
+  when: >
+    (jenkins_users_config is defined and jenkins_users_config.changed)
+    or (jenkins_http_config is defined and jenkins_http_config.changed)
+    or (jenkins_home_config is defined and jenkins_home_config.changed)
+    or (jenkins_proxy_config is defined and jenkins_proxy_config.changed)
+
+- name: Ensure Jenkins is started and runs on startup.
+  ansible.builtin.service:
+    name: jenkins
+    state: started
+    enabled: yes
+
+- name: Wait for Jenkins to start up before proceeding.
+  ansible.builtin.uri:
+    url: "http://{{ jenkins_hostname }}:{{ jenkins_port }}/cli/"
+    method: GET
+    user: "{{ jenkins_admin_username }}"
+    password: "{{ jenkins_admin_password }}"
+    force_basic_auth: true
+    return_content: "yes"
+    timeout: 5
+    body_format: raw
+    follow_redirects: "no"
+    status_code: 200,403
+  register: result
+  until: (result.status == 403 or result.status == 200) and (result.content.find("Please wait while") == -1)
+  retries: "{{ jenkins_connection_retries }}"
+  delay: "{{ jenkins_connection_delay }}"
+  changed_when: false
+  check_mode: false # disable dry run
+
+- name: Get the jenkins-cli jarfile from the Jenkins server.
+  ansible.builtin.get_url:
+    url: "http://{{ jenkins_hostname }}:{{ jenkins_port }}/jnlpJars/jenkins-cli.jar"
+    dest: "{{ jenkins_jar_location }}"
+  register: jarfile_get
+  until: "'OK' in jarfile_get.msg or '304' in jarfile_get.msg or 'file already exists' in jarfile_get.msg"
+  retries: 5
+  delay: 10
+  check_mode: false
+
+- name: Remove Jenkins security init scripts after first startup.
+  ansible.builtin.file:
+    path: "{{ jenkins_home }}/init.groovy.d/basic-security.groovy"
+    state: absent

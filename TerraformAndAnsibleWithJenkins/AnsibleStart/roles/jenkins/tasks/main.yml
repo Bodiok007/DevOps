@@ -1,0 +1,21 @@
+---
+
+- name: Install dependencies
+  include_tasks: dependencies.yml
+
+- name: Gather IP addresses from "jenkins" group
+  set_fact:
+    jenkins_hostname: "{{ groups['jenkins'] | map('extract', hostvars, ['inventory_hostname']) | first }}"
+
+- name: Install Jenkins
+  include_tasks: install_jenkins.yml
+
+- name: Install Jenkins plugins
+  include_tasks: install_plugins.yml
+  tags:
+    - install_jenkins_plugins
+
+- name: Copy configurations-as-code files and restart Jenkins
+  include_tasks: configuration_as_code.yml
+  tags: 
+    - template_config_files

@@ -1,0 +1,8 @@
+---
+
+- hosts: jenkins
+  become: true
+  roles:
+    - aws_cli
+    - ansible
+    - jenkins

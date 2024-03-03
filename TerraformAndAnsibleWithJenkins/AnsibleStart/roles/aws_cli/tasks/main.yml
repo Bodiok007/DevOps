@@ -1,0 +1,29 @@
+---
+
+- name: Update packages cache
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Install package dependencies.
+  package: name={{ item }} state=present
+  become_user: "{{ user }}"
+  with_items:
+    - unzip
+
+- name: Check if AWS CLI is installed
+  ansible.builtin.command: which aws
+  register: aws_cli_check
+  become_user: "{{ user }}"
+  ignore_errors: true
+
+- name: Download and install AWS CLI
+  ansible.builtin.shell: |
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip awscliv2.zip
+    ./aws/install
+  args:
+    chdir: /tmp
+  environment:
+    PATH: "{{ ansible_env.PATH }}:/usr/local/bin"
+  become_user: "{{ user }}"
+  when: aws_cli_check.rc != 0
