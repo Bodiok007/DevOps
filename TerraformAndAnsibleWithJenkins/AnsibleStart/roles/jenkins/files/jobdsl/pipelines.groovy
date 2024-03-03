@@ -45,7 +45,7 @@ pipelineJob('application/nodejs') {
                         url('https://github.com/Bodiok007/AppForJenkins.git')
                         //credentials('my-credentials3')
                     }
-                    branch('*/master')
+                    branch('*/main')
                     extensions { }
                 }
             }
