@@ -44,7 +44,7 @@ kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
 
-5. Apply application for [ArgoCD](https://github.com/Bodiok007/ArgoCD/tree/master)
+5. Apply [application.yaml](https://github.com/Bodiok007/ArgoCD/blob/master/application.yaml) for [ArgoCD](https://github.com/Bodiok007/ArgoCD/tree/master)
 
 ```
 kubectl apply -f application.yaml
